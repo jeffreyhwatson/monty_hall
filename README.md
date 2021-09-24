@@ -177,3 +177,64 @@ We have just shown that the probability of the car not being behind the player�
 Since P(A|B) = P(A), we see that event B happening did nothing to update the probability of event A. P(A) remains 1/3, and the probability of A’ remains unchanged at 2/3 as well. However, the event A’ has been reduced to the car being behind the remaining door that the player didn’t pick at the start of the game. Thus, the probability that the alternate door contains the car has doubled from 1/3, at the start of the game, to 2/3 because of the new information provided by event B.
 ## Conclusion
 Hopefully this post has helped you gain some insight into the Monty Hall Problem and some of math underlying it. I have wrapped the simulation code in a function to make it easy to run multiple tests very quickly. Be forewarned though, for very large numbers of games the function can take a fair bit of time to return a result.
+
+## Simulation Function
+```
+def monty_hall(integer):
+    """
+    Input: An integer n specifying the number of games to be simulated.
+    
+    Return: The simulated probabilities of winning for each strategy
+            after n games, and a graph of the simulated probabilities 
+            of winning for each strategy over n games.
+    """
+    keep_count = [] # count of simutated wins if door is kept
+    change_count = [] # count of simulated wins if door is changed
+    P_keep = [] # proportion of keep wins after each game 
+    P_change = [] # proportion of a change wins after each game
+    
+    for i in range(integer):
+        doors = [1, 2, 3] # door labels
+        car_door = np.random.choice(range(1,4)) # set car door
+        player_door = np.random.choice(range(1,4)) # set player door
+        # set goats doors given car door and player door
+        goat_doors = [door for door in doors if\
+                      door != car_door and door != player_door]
+        # set the door Monty reveals given the goat doors
+        revealed_door = np.random.choice(goat_doors)
+        # set the change door given the player door and the revealed door
+        changed_door = [door for door in doors if\
+                        door != player_door and door != revealed_door]
+        
+        if player_door == car_door:  # keep wins
+            keep_count.append(1)
+        else:                        # keep losses
+            keep_count.append(0)
+        if changed_door == car_door: # change wins
+            change_count.append(1)
+        else:                        # change losses
+            change_count.append(0)
+        
+        P_k_i = np.mean(keep_count[:i]) # proportion of keep wins in i games
+        P_keep.append(P_k_i)
+        P_c_i = np.mean(change_count[:i]) # proportion of change wins i games
+        P_change.append(P_c_i)
+    
+    # graphing the results
+    fig, ax = plt.subplots(figsize=(10,5))
+    plt.plot(range(integer), P_keep, label='Keep Door')
+    plt.plot(range(integer), P_change, label='Change Door')
+    plt.ylabel('Probability of Winning', size=15)
+    plt.xlabel('Number of Simulations', size=15)
+    plt.title('Simulated Probabilities of Winning the Monty Hall Game', size=15)
+    plt.xticks(size = 12)
+    plt.yticks(size = 12)
+    plt.legend(prop={'size': 12})
+    
+    # printing results
+    print('Simulated Probabilities:')
+    print(f'Probability of Winning if Door is Kept:\t \t\
+          {round(np.mean(keep_count), 2)}')
+    print(f'Probability of Winning if Door is Changed:\t\
+          {round(np.mean(change_count), 2)}')      
+```
