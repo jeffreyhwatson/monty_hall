@@ -126,8 +126,8 @@ Running the code for 5000 games reveals the following:
 Change door for the win!!!
 ```
     Simulated Probabilities:
-    Probability of Winning if Door is Kept:	 	        0.34
-    Probability of Winning if Door is Changed:	          0.66
+    Probability of Winning if Door is Kept:        0.34
+    Probability of Winning if Door is Changed:     0.66
 ```
 We can see from the visualization that the relative frequencies level out to a limiting value fairly quickly (at around 1000 games) and remain steady. These are the probabilities for the keep and change strategies. 
 
