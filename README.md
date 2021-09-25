@@ -7,6 +7,9 @@ Author: Jeffrey Hanif Watson
 
 Win probabilites for the two strategies of the Monty Hall game. Read on to find the optimal strategy.
 
+### Quick Link
+[Notebook](./notebook/monty_hall.ipynb)
+
 ## Introduction
 Recently, I was asked to code a simulation of the Monty Hall game during a lesson on Bayesian statistics. I found it amusing that I was required to use a frequentist approach to probability for insight into what was explained as a Bayesian problem. I decided to Investigate further and come up with my own Bayesian understanding of what was going on.
 For those unfamiliar with this famous mental puzzle, allow me to lay out the rules and key assumptions of the game. The Monty Hall problem is named after the host of the Let’s Make A Deal game show and follows similar rules to that game. A contestant is presented with identical three doors, two of which contain goats, and one of which contains a car. The contestant is then asked to announce which door they chose, and one of the other doors is opened. Its contents are revealed to the player, and the host then asks the player if they would like to switch their choice of doors before the car is revealed. Whichever choice the player makes at this point, they win if the car is behind the door they chose. You should take a moment to think about what you would do in this situation, and take note of it. You may be surprised, or have some of your assumptions challenged, by the end of the article.
@@ -123,11 +126,12 @@ Lastly, we calculate the relative frequencies of the wins, for both keep and cha
 ## Results
 Running the code for 5000 games reveals the following:
 ![graph1](./figures/odds.png)
+
 Change door for the win!!!
 ```
     Simulated Probabilities:
-    Probability of Winning if Door is Kept:        0.34
-    Probability of Winning if Door is Changed:     0.66
+    Probability of Winning if Door is Kept:        0.33
+    Probability of Winning if Door is Changed:     0.67
 ```
 We can see from the visualization that the relative frequencies level out to a limiting value fairly quickly (at around 1000 games) and remain steady. These are the probabilities for the keep and change strategies. 
 
