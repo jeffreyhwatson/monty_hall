@@ -27,21 +27,21 @@ The frequentist definition of the probability of an event is the limit of the re
 ## Code and Explanations
 The code was written for use in a juypter notebook and begins by importing the necessary libraries and setting matplotlibto inline plotting:
 
-```
+```python
     import numpy as np
     import matplotlib.pyplot as plt
     %matplotlib inline
 ```
 
 Initializing the empty lists used in our for loop:
-```
+```python
     keep_count = [] # count of simulated wins if door is kept
     change_count = [] # count of simulated wins if door is changed
     P_keep = [] # proportion of keep wins after each game 
     P_change = [] # proportion of a change wins after each game
 ```
 The main for loop (this will be explained piece by piece below):
-```
+```python
     for i in range(number_of_games):
         doors = [1, 2, 3] # door labels
         # set the car door
@@ -74,37 +74,37 @@ The main for loop (this will be explained piece by piece below):
         P_change.append(P_c_i)
 ```
 There is a bit going on in the loop, so we’ll break it down piece by piece for clarity. number_of_games will be an integer setting the number of simulations we want to run. For each game simulation, we start by randomly setting the car door value to 1, 2 or 3, using numpy’s random.choice().
-```
+```python
     for i in range(number_of_games):
         doors = [1, 2, 3] # door labels
         # set the car door
         car_door = np.random.choice(range(1,4))
 ```
 Next, we set the player door value by the same method.
-```
+```python
     # set the player door
     player_door = np.random.choice(range(1,4))
 ```
 We now set the two goat door values using a list comprehension with the values from the two previous steps. We are forming a list of two values that are neither the car door value nor the player door value.
-```
+```python
     # set the goat doors given car door and player door
     goat_doors = [door for door in doors if\
                   door != car_door and door != player_door]
 ```
 Now, we set the revealed door value by choosing randomly from the two goat door values.
-```
+```python
     # set the door Monty reveals given the goat doors
     revealed_door = np.random.choice(goat_doors)
 ```
 Next, we set the change door value according to the player door value and the revealed door value.
-```
+```python
     # set the change door given player door and revealed door
     changed_door = [door for door in doors if\
                     door != player_door and door\
                     != revealed_door]
 ```
 Our next step is to count the number of wins and loses based on the values that were chosen above. We are just checking if either the player door value matches the car door value, or the change door value matches the car door value. From the code in the cell above we see that these are mutually exclusive numbers, so one of them has to match the car door value and win, while the other number loses.
-```
+```python
     if player_door == car_door:  #  add one to keep wins
         keep_count.append(1)
     else:                        # add one to keep losses
@@ -115,7 +115,7 @@ Our next step is to count the number of wins and loses based on the values that 
         change_count.append(0)
 ```
 Lastly, we calculate the relative frequencies of the wins, for both keep and change, at each iteration of the game we play. Recall that the frequentist definition of probability is the limit of the relative frequencies of an event over many trials.
-```
+```python
     # proportion of keep wins in i games
     P_k_i = np.mean(keep_count[:i]) 
     P_keep.append(P_k_i)
@@ -183,7 +183,7 @@ Since P(A|B) = P(A), we see that event B happening did nothing to update the pro
 Hopefully this post has helped you gain some insight into the Monty Hall Problem and some of math underlying it. I have wrapped the simulation code in a function to make it easy to run multiple tests very quickly. Be forewarned though, for very large numbers of games the function can take a fair bit of time to return a result.
 
 ## Simulation Function
-```
+```python
 def monty_hall(integer):
     """
     Input: An integer n specifying the number of games to be simulated.
